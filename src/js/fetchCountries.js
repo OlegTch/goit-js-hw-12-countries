@@ -5,7 +5,6 @@ import getRefs from './get-refs';
 
 import countriesTpl from '../templates/countries.hbs';
 import debounce from 'lodash.debounce';
-// import { alert } from '@pnotify/core';
 
 import { alert, defaultModules } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
@@ -33,9 +32,10 @@ function onSearch(event) {
 function renderCountryCard(countres) {
   clearCard();
   if (countres.length > 10) {
-    alert(
-      `Too many matches found - ${countres.length} matches. Please enter a more specific query!`,
-    );
+    alert({
+      text: `Too many matches found - ${countres.length} matches. Please enter a more specific query!`,
+      delay: 1500,
+    });
   } else if (countres.length > 1 && countres.length <= 10) {
     makeCountriesList(countres);
     // } else if (countres.status !== undefined && countres.status === 404) {
@@ -49,7 +49,11 @@ function renderCountryCard(countres) {
 }
 
 function onFetchError(error) {
-  alert('Введены неправильные данные ');
+  // alert('Введены неправильные данные ');
+  alert({
+    text: 'Введены неправильные данные',
+    delay: 1500,
+  });
 }
 
 function makeCountriesList(countres) {
